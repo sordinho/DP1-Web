@@ -56,32 +56,35 @@ footer {
 	right: 0;
 	bottom: 0%;
 	left: 0;
-	background-color: #85f1f1;
+	background-color: #666;
+}
+
+button {
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	margin: 4px 2px;
 }
 
 .freeSeat {
 	background-color: #4caf50;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	margin: 4px 2px;
 }
 
 .bookedSeat {
-	background-color: #4caf50;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	margin: 4px 2px;
+	background-color: #f98b0e;
+}
+
+.myBookedSeat {
+	background-color: #f5ed05;
 }
 
 .soldSeat {
-	background-color: #FF3C11;
-	border: none;
-	color: white;
-	padding: 10px 20px;
+	background-color: #ff3c11;
+}
+
+.copyright {
 	text-align: center;
-	margin: 4px 2px;
+	margin: 5px;
+	padding: 5px;
 }

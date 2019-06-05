@@ -25,13 +25,13 @@
         <table id='seatTable'>
             <?php
             include ("functions.php");
-            printSeatTable();
+            printSeatTable(false);
             ?>
         </table>
     </section>
 </article>
 
 
-<footer><p>footer</p></footer>
+<footer><p class="copyright">Copyright © Polito-PD1 Web 2019  &nbsp;&nbsp;&nbsp;&nbsp; Designed by: Davide Sordi &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/sordinho">GitHub</a> </p></footer>
 </body>
 </html>
