@@ -8,7 +8,7 @@ checkHTTPS();
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Login</title>
+    <title>Your Homr</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="functions.js"></script>
     <noscript>
@@ -25,30 +25,33 @@ checkHTTPS();
 
 <aside>
     <h1 class="aside_menu">Menu</h1>
+    <h3 class="aside_menu">Welcome back, <br>
+        <?php
+        if (isset($_SESSION['user']))
+            echo $_SESSION['user'];
+        else
+            echo "ERROR";
+        ?>
+    </h3>
     <ul>
-
-
-        <li><a href="https://localhost/DP1-Web/index.php">Home</a></li>
-        <li><a href="https://localhost/DP1-Web/register.php">Register</a></li>
+        <li><a href="https://localhost/DP1-Web/logout.php">Logout</a></li>
+    </ul>
+    <h1 class="aside_menu">Status</h1>
+    <ul>
+        <?php
+        printSeatInformation();
+        ?>
     </ul>
 </aside>
 
 <article>
     <section>
-        <h1 class="page_title">Login</h1>
-
-        <form action="" method="post" onsubmit="return validateForm('login')">
-            <div class="input_log_reg">
-                <label for="mail"><b>Username</b></label>
-                <input type="email" name="mail" id="mail" placeholder="Enter Email" required>
-            </div>
-            <div class="input_log_reg">
-                <label for="passwd"><b>Password</b></label>
-                <input type="password" name="password" id="passwd" placeholder="Enter Password" required>
-            </div>
-            <button type="submit" class="log_reg">Login</button>
-        </form>
-
+        <h1>Seats Table</h1>
+        <table id='seatTable'>
+            <?php
+            printSeatTable(true);
+            ?>
+        </table>
     </section>
 </article>
 
@@ -57,5 +60,3 @@ checkHTTPS();
         <a href="https://github.com/sordinho">GitHub</a></p></footer>
 </body>
 </html>
-
-

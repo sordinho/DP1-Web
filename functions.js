@@ -31,3 +31,12 @@ function validateForm(page) {
 		return validateEmail(emailToCheck) && validatePassword(psswdToCheck);
 	}
 }
+
+function checkCookies() {
+	var cookies = navigator.cookieEnabled;
+	if (!cookies) {
+		document.write(
+			"<div class='noscript'><h1>Attention: you need to enable COOKIES in order to use the website.</h1></div>"
+		);
+	}
+}
