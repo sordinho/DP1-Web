@@ -1,3 +1,7 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
 	background-color: #666;
 	position: fixed;
@@ -67,6 +71,49 @@ button {
 	margin: 4px 2px;
 }
 
+button.log_reg:hover {
+	opacity: 0.8;
+}
+
+button.log_reg {
+	background-color: #4caf50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 75%;
+}
+
+input[type="email"],
+input[type="password"] {
+	width: 75%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+label {
+	display: block;
+	text-align: left;
+	margin-left: 12.5%;
+}
+
+li {
+	padding: 5%;
+}
+
+.aside_menu {
+	padding: 5%;
+	margin-left: 5%;
+}
+
+.input_log_reg {
+	padding: 16px;
+}
+
 .freeSeat {
 	background-color: #4caf50;
 }
@@ -87,4 +134,7 @@ button {
 	text-align: center;
 	margin: 5px;
 	padding: 5px;
+}
+
+.page_title {
 }
