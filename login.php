@@ -37,7 +37,7 @@ checkHTTPS();
     <section>
         <h1 class="page_title">Login</h1>
 
-        <form action="" method="post" onsubmit="return validateForm('login')">
+        <form action="<?php loginUser()?>" method="post" onsubmit="return validateForm('login')">
             <div class="input_log_reg">
                 <label for="mail"><b>Username</b></label>
                 <input type="email" name="mail" id="mail" placeholder="Enter Email" required>
@@ -46,8 +46,13 @@ checkHTTPS();
                 <label for="passwd"><b>Password</b></label>
                 <input type="password" name="password" id="passwd" placeholder="Enter Password" required>
             </div>
-            <button type="submit" class="log_reg">Login</button>
+            <button type="submit" name="logUser" class="log_reg">Login</button>
         </form>
+
+        <?php
+        if(isset($_GET['loginFailed']))
+            echo "<div class='error'>" . $_GET["errors"] . "</div>";
+        ?>
 
     </section>
 </article>

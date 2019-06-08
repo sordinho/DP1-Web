@@ -1,6 +1,7 @@
 <?php
 include('functions.php');
 checkHTTPS();
+checkSession();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +28,8 @@ checkHTTPS();
     <h1 class="aside_menu">Menu</h1>
     <h3 class="aside_menu">Welcome back, <br>
         <?php
-        if (isset($_SESSION['user']))
-            echo $_SESSION['user'];
+        if (isset($_SESSION['s267570_user']))
+            echo $_SESSION['s267570_user'];
         else
             echo "ERROR";
         ?>
