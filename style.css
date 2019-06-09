@@ -45,11 +45,14 @@ section {
 #seatTable {
 	margin-left: auto;
 	margin-right: auto;
+	padding: 2%;
 }
 
 td {
-	height: 25px;
+	height: 30px;
+	width: 120px;
 	vertical-align: center;
+	padding: 1%;
 }
 
 footer {
@@ -71,7 +74,8 @@ button {
 	margin: 4px 2px;
 }
 
-button.log_reg:hover {
+button.log_reg:hover,
+button.utilityButton:hover {
 	opacity: 0.8;
 }
 
@@ -105,24 +109,40 @@ li {
 	padding: 5%;
 }
 
-.status_total {
+.utilityButton {
+	background-color: #4caf50;
+	color: white;
+	padding: 14px 20px;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-bottom: 5%;
+	border: none;
+	cursor: pointer;
+	width: 50%;
+}
+
+#status_total {
 	font-weight: bold;
 }
 
-.status_free {
+#status_free {
 	color: #4caf50;
 }
 
-.status_bought {
+#status_sold {
 	color: #ff3c11;
 }
 
-.status_booked {
+#status_booked {
 	color: #f98b0e;
 }
 
+#status_my_booking {
+	color: #f5ed05;
+}
+
 .aside_menu {
-	padding: 5%;
+	padding: 3%;
 	margin-left: 5%;
 }
 
@@ -164,12 +184,27 @@ li {
 }
 
 .error {
-	width: 92%;
-	margin: 0px auto;
+	width: 85%;
+	margin-top: 5%;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 10px;
 	border: 1px solid #a94442;
 	color: #a94442;
 	background: #f2dede;
+	border-radius: 5px;
+	text-align: left;
+}
+
+.infoOK {
+	width: 85%;
+	margin-top: 5%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	border: 1px solid #4caf50;
+	color: #009e1a;
+	background: #c1f7c8;
 	border-radius: 5px;
 	text-align: left;
 }

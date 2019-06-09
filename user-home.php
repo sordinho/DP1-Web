@@ -26,23 +26,22 @@ checkSession();
 
 <aside>
     <h1 class="aside_menu">Menu</h1>
-    <h3 class="aside_menu">Welcome back, <br>
+    <h4 class="aside_menu">Welcome back <br><br>
         <?php
         if (isset($_SESSION['s267570_user']))
             echo $_SESSION['s267570_user'];
         else
-            echo "ERROR";
+            myRedirect("login.php");
         ?>
-    </h3>
+    </h4>
     <ul>
         <li><a href="https://localhost/DP1-Web/logout.php">Logout</a></li>
     </ul>
+    <hr>
     <h1 class="aside_menu">Status</h1>
-    <ul>
         <?php
-        printSeatInformation();
+        printSeatInformation(true);
         ?>
-    </ul>
 </aside>
 
 <article>
