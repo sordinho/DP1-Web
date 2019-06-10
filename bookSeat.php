@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Created by Davide Sordi
+ * Using PhpStorm
+ * Date: ${DATE}
+ * Time: ${TIME}
+ */
+
 include('functions.php');
 //checkHTTPS();
 checkSession();
