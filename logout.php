@@ -1,5 +1,6 @@
 <?php
 include ('functions.php');
+checkHTTPS();
 // Session to kill
 session_start();
 if (ini_get("session.use_cookies")) {

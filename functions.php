@@ -4,9 +4,9 @@ define('COL_NUMBER', 6);
 define('TOTAL_SEATS', COL_NUMBER * ROW_NUMBER);
 define('INACTIVITY_TIME', 1200); // TODO set to 120
 
-// global variables for seat status
-$notFreeSeats = array();
-$seatStatus = array();
+// global variables
+$notFreeSeats = array(); // list of non free seats
+$seatStatus = array(); // array with general statistics on seats status
 
 function printSeatTable($clickable)
 {
@@ -19,11 +19,11 @@ function printSeatTable($clickable)
             $seatClass = 'freeSeat';
             if (isset($notFreeSeats[$buttonName]))
                 $seatClass = $notFreeSeats[$buttonName];
-            if (($seatClass == 'soldSeat') || ($seatClass == 'bookedSeat') || ($clickable == false))
+            if (($seatClass == 'soldSeat') || ($clickable == false))
                 $buttonAttribute = "disabled";
             else
                 $buttonAttribute = " ";
-            echo '<td><button type="button" ' . $buttonAttribute . ' class="' . $seatClass . '" name="' . $buttonName . '">' . $buttonName . '</button></td>';
+            echo '<td><button type="button" ' . $buttonAttribute . ' class="' . $seatClass . '" id="' . $buttonName . '" onclick="bookAjax(this.id)">' . $buttonName . '</button></td>';
         }
         echo "</tr>";
     }
@@ -51,9 +51,15 @@ function printSeatInformation($loggedIn = false)
         echo "<li id='status_my_booking'>My booked seats: " . $myBooking . "</li>";
         echo "</ul><hr>";
         echo "<button type='button' class='utilityButton' name='update' onclick='window.location.href=window.location.href'>Update</button><br>";
-        echo "<button type='button' class='utilityButton' name='buy' >Buy</button>";
+        echo "<form action='".buySeats()."' method='post' onsubmit='true'>" ;
+        echo "<button type='submit' class='utilityButton' name='buy' >Buy</button>";
+        echo" </form>";
     } else
         echo "</ul>";
+}
+
+function buySeats(){
+    
 }
 
 function retrieveSeatStatus($user = null)
