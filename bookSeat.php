@@ -3,8 +3,7 @@
 /**
  * Created by Davide Sordi
  * Using PhpStorm
- * Date: ${DATE}
- * Time: ${TIME}
+ * Date: 11/06/2019
  */
 
 include('functions.php');

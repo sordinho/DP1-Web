@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Created by Davide Sordi
+ * Using PhpStorm
+ * Date: 05/06/2019
+ */
+
 define('ROW_NUMBER', 10);
 define('COL_NUMBER', 6);
 define('TOTAL_SEATS', COL_NUMBER * ROW_NUMBER);

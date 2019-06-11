@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Created by Davide Sordi
+ * Using PhpStorm
+ * Date: 05/06/2019
+ */
+
 include('functions.php');
 checkHTTPS();
 ?>
