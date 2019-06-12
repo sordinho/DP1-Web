@@ -33,22 +33,21 @@ checkHTTPS();
 
 <aside>
     <h1 class="aside_menu">Menu</h1>
-    <ul>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="register.php">Register</a></li>
-    </ul>
+    <a class="buttonLink" href="login.php">Login</a>
+    <br>
+    <a class="buttonLink" href="register.php">Register</a>
     <hr>
     <h1 class="aside_menu">Status</h1>
 
-        <?php
-        printSeatInformation();
-        ?>
+    <?php
+    printSeatInformation();
+    ?>
 
 </aside>
 
 <article>
     <section>
-        <h1>Seats Table</h1>
+        <h1>Seats Map</h1>
         <table id='seatTable'>
             <?php
             printSeatTable(false);

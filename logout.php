@@ -6,7 +6,7 @@
  * Date: 06/06/2019
  */
 
-include ('functions.php');
+include('functions.php');
 checkHTTPS();
 // Session to kill
 session_start();

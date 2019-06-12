@@ -1,36 +1,56 @@
 <?php
-
 /**
  * Created by Davide Sordi
  * Using PhpStorm
- * Date: 11/06/2019
+ * Date: 12/06/2019
  */
 
 include('functions.php');
-//checkHTTPS();
+checkHTTPS();
 checkSession();
 
-if ((!isset($_SESSION['s267570_user'])) || (!isset($_POST['seatID'])) || (!isset($_POST['newStatus']))) {
-    echo "error";
-    die(header("location:user-home.php"));
-}
+
 
 $user = $_SESSION['s267570_user'];
-$seat = $_POST['seatID'];
-$newStatus = $_POST['newStatus'];
+$countBooked = 0;
+$seats = array();
+foreach ($_POST as $key => $value) {
+//    echo " <h1> $key=$value </h1>";
+    if ($value == "BS") {
+        $countBooked++;
+        array_push($seats,$key);
+    }
+}
 
+print_r($seats);
+//if ($countBooked == 0)
+//die(header("location:user-home.php?error=true&errors=" . urlencode("You need to book at least one seat"))); // todo uncomment
 
 $dbConn = DBConnect();
 
-$queryCheckFree = "SELECT * from bookings where seat='$seat' FOR UPDATE";
-$queryInsertBooking = "INSERT INTO  bookings(seat,status,user) values ('$seat','$newStatus','$user')";
-$queryUpdateBooking = "UPDATE  bookings SET status='$newStatus', user='$user' WHERE seat='$seat'";
-$queryDeleteBooking = "DELETE FROM  bookings WHERE seat='$seat'";
-$queryCheckMyBooking = "SELECT * from bookings where seat='$seat' FOR UPDATE";
-
+$queryGetBookings = "SELECT count(*) FROM bookings WHERE user='' and status='booked' FOR UPDATE ";
 
 try {
     mysqli_autocommit($dbConn, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if ($newStatus == 'free') {
         // check if booking was mine and set it to free (delete from db)
         if (!$resultCheckBeforeFree = mysqli_query($dbConn, $queryCheckMyBooking))
@@ -88,6 +108,5 @@ try {
 }
 mysqli_autocommit($dbConn, true);
 mysqli_close($dbConn);
-
 
 ?>

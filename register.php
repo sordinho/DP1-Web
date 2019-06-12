@@ -33,17 +33,16 @@ checkHTTPS();
 <aside>
     <h1 class="aside_menu">Menu</h1>
 
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="login.php">Login</a></li>
-    </ul>
+    <a class="buttonLink" href="index.php">Home</a>
+    <br>
+    <a class="buttonLink" href="login.php">Login</a>
 </aside>
 
 <article>
     <section>
         <h1 class="page_title">Register</h1>
 
-        <form action="<?php registerUser()?>" method="post" onsubmit="return validateForm('register')">
+        <form action="<?php registerUser() ?>" method="post" onsubmit="return validateForm('register')">
             <div class="input_log_reg">
                 <label for="mail"><b>Username</b></label>
                 <input type="email" name="mail" id="mail" placeholder="Enter Email" required>
@@ -56,10 +55,9 @@ checkHTTPS();
         </form>
 
         <?php
-            if(isset($_GET['registrationFailed']))
-                echo "<div class='error'>" . $_GET["errors"] . "</div>";
+        if (isset($_GET['registrationFailed']))
+            echo "<div class='error'>" . $_GET["errors"] . "</div>";
         ?>
-
 
 
     </section>

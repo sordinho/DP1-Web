@@ -32,12 +32,9 @@ checkHTTPS();
 
 <aside>
     <h1 class="aside_menu">Menu</h1>
-    <ul>
-
-
-        <li><a href="index.php">Home</a></li>
-        <li><a href="register.php">Register</a></li>
-    </ul>
+            <a class="buttonLink" href="index.php">Home</a>
+        <br>
+        <a class="buttonLink" href="register.php">Register</a>
 </aside>
 
 <article>

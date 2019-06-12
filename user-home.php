@@ -30,38 +30,44 @@ checkSession();
 <header>
     <h1>Sordinho AirLines</h1>
 </header>
-
-<aside>
-    <h1 class="aside_menu">Menu</h1>
-    <h4 class="aside_menu">Welcome back <br><br>
-        <?php
-        if (isset($_SESSION['s267570_user']))
-            echo $_SESSION['s267570_user'];
-        else
-            myRedirect("login.php");
-        ?>
-    </h4>
-    <ul>
-        <li><a href="logout.php">Logout</a></li>
-    </ul>
-    <hr>
-    <h1 class="aside_menu">Status</h1>
+<form action="buySeats.php" method="post">
+    <aside>
+        <h1 class="aside_menu">Menu</h1>
+        <h4 class="aside_menu">Welcome back <br><br>
+            <?php
+            if (isset($_SESSION['s267570_user']))
+                echo $_SESSION['s267570_user'];
+            else
+                myRedirect("login.php");
+            ?>
+        </h4>
+        <a class="buttonLink" href="logout.php">Logout</a>
+        <hr>
+        <h1 class="aside_menu">Status</h1>
         <?php
         printSeatInformation(true);
+
+
+        if (isset($_GET['error']))
+            echo "<div class='error'>" . $_GET["errors"] . "</div>";
+        if (isset($_GET['msg']))
+            echo "<div class='infoOK'>" . $_GET["info"] . "</div>";
+
         ?>
-</aside>
+    </aside>
 
-<article>
-    <section>
-        <h1>Seats Table</h1>
-        <table id='seatTable'>
-            <?php
-            printSeatTable(true);
-            ?>
-        </table>
-    </section>
-</article>
-
+    <article>
+        <section>
+            <h1>Seats Map</h1>
+            <table id='seatTable'>
+                <?php
+                printSeatTable(true);
+                ?>
+            </table>
+            <p>Click on a <mark class="freeSeat">free seat</mark> for booking it. Click on a seat <mark class="myBookedSeat">booked by yourself</mark> for freeing it</p>
+        </section>
+    </article>
+</form>
 
 <footer><p class="copyright">Copyright © Polito-PD1 Web 2019 &nbsp;&nbsp;&nbsp;&nbsp; Designed by: Davide Sordi &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="https://github.com/sordinho">GitHub</a></p></footer>

@@ -27,11 +27,11 @@ function validatePassword(psswdToCheck) {
 }
 
 function validateForm(page) {
-    if (page == "login") {
+    if (page === "login") {
         var emailToCheck = document.getElementById("mail").value;
         return validateEmail(emailToCheck);
     }
-    if (page == "register") {
+    if (page === "register") {
         var emailToCheck = document.getElementById("mail").value;
         var psswdToCheck = document.getElementById("passwd").value;
         return validateEmail(emailToCheck) && validatePassword(psswdToCheck);
@@ -91,11 +91,17 @@ function bookAjax(seatID) {
 }
 
 function updateSeatStatus(seatID) {
-    if (req.readyState === 4) {
-        document.getElementById(seatID).className = req.responseText;
+    if ((req.readyState === 4) && (req.status === 0 || req.status === 200)) {
+        if (req.responseText !== "error")
+            document.getElementById(seatID).className = req.responseText;
         if (document.getElementById(seatID).className === 'soldSeat') {
             document.getElementById(seatID).disabled = true;
             alert('Seat: ' + seatID + " is sold.")
         }
+        if (req.responseText === 'myBookedSeat')
+            document.getElementById(seatID + "_HIDDEN").value = "BS";
+
+        if (req.responseText === 'freeSeat')
+            document.getElementById(seatID + "_HIDDEN").value = "";
     }
 }

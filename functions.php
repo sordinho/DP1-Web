@@ -30,7 +30,16 @@ function printSeatTable($clickable)
                 $buttonAttribute = "disabled";
             else
                 $buttonAttribute = " ";
-            echo '<td><button type="button" ' . $buttonAttribute . ' class="' . $seatClass . '" id="' . $buttonName . '" onclick="bookAjax(this.id)">' . $buttonName . '</button></td>';
+            echo '<td><button type="button" ' . $buttonAttribute . ' class="' . $seatClass . '" id="' . $buttonName . '" onclick="bookAjax(this.id)">' . $buttonName . '</button>';
+
+            // add hidden input type for not sold seats and set value for my booking
+            $hiddenValue = "";
+            if ($seatClass=='myBookedSeat')
+                $hiddenValue = 'BS';
+            if ($buttonAttribute == " ")
+                echo '<input type="hidden" value="'.$hiddenValue.'" id="' . $buttonName . '_HIDDEN" name="' . $buttonName . '"/></td>';
+            else
+                echo '</td>';
         }
         echo "</tr>";
     }
@@ -58,15 +67,9 @@ function printSeatInformation($loggedIn = false)
         echo "<li id='status_my_booking'>My booked seats: " . $myBooking . "</li>";
         echo "</ul><hr>";
         echo "<button type='button' class='utilityButton' name='update' onclick='window.location.href=window.location.href'>Update</button><br>";
-        echo "<form action='".buySeats()."' method='post' onsubmit='true'>" ;
-        echo "<button type='submit' class='utilityButton' name='buy' >Buy</button>";
-        echo" </form>";
+        echo "<input type='submit' class='utilityButton' name='buy' value='Buy'/>";
     } else
         echo "</ul>";
-}
-
-function buySeats(){
-    
 }
 
 function retrieveSeatStatus($user = null)
