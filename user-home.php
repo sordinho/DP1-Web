@@ -42,7 +42,7 @@ checkSession();
         ?>
     </h4>
     <ul>
-        <li><a href="https://localhost/DP1-Web/logout.php">Logout</a></li>
+        <li><a href="logout.php">Logout</a></li>
     </ul>
     <hr>
     <h1 class="aside_menu">Status</h1>

@@ -35,8 +35,8 @@ checkHTTPS();
     <ul>
 
 
-        <li><a href="https://localhost/DP1-Web/index.php">Home</a></li>
-        <li><a href="https://localhost/DP1-Web/register.php">Register</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="register.php">Register</a></li>
     </ul>
 </aside>
 
