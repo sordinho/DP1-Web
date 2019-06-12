@@ -133,7 +133,7 @@ function checkSession()
 
 function myRedirect($page, $msg = null)
 {
-    $redirectPage = 'https://' . $_SERVER['HTTP_HOST'] . '/DP1-Web/' . $page;
+    $redirectPage = 'https://' . $_SERVER['HTTP_HOST'] . '/DP1-Web/' . $page; // todo modify folder
     if ($msg != null) {
         $msg = urlencode($msg);
         $redirectPage = $redirectPage . "?msg=true&info=" . $msg;

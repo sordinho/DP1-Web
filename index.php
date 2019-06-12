@@ -27,8 +27,8 @@ checkHTTPS();
 <aside>
     <h1 class="aside_menu">Menu</h1>
     <ul>
-        <li><a href="https://localhost/DP1-Web/login.php">Login</a></li>
-        <li><a href="https://localhost/DP1-Web/register.php">Register</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="register.php">Register</a></li>
     </ul>
     <hr>
     <h1 class="aside_menu">Status</h1>
