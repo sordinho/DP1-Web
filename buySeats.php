@@ -9,104 +9,53 @@ include('functions.php');
 checkHTTPS();
 checkSession();
 
-
-
 $user = $_SESSION['s267570_user'];
 $countBooked = 0;
 $seats = array();
 foreach ($_POST as $key => $value) {
-//    echo " <h1> $key=$value </h1>";
     if ($value == "BS") {
         $countBooked++;
-        array_push($seats,$key);
+        array_push($seats, $key);
     }
 }
 
-print_r($seats);
-//if ($countBooked == 0)
-//die(header("location:user-home.php?error=true&errors=" . urlencode("You need to book at least one seat"))); // todo uncomment
+if ($countBooked == 0)
+    die(header("location:user-home.php?error=true&errors=" . urlencode("You need to book at least one seat")));
 
 $dbConn = DBConnect();
 
-$queryGetBookings = "SELECT count(*) FROM bookings WHERE user='' and status='booked' FOR UPDATE ";
+$queryGetBookings = "SELECT * FROM bookings WHERE user='$user' and status='booked' FOR UPDATE ";
+$queryBuySeats = "UPDATE  bookings SET status='sold' WHERE user='$user' and status='booked'";
 
 try {
     mysqli_autocommit($dbConn, false);
 
+    if (!$resultGetBookings = mysqli_query($dbConn, $queryGetBookings))
+        throw new Exception("failed to get user's bookings");
 
+    if (mysqli_num_rows($resultGetBookings) == $countBooked) {
+        // query update seats
+        if (!$resultBuySeats = mysqli_query($dbConn, $queryBuySeats))
+            throw new Exception("failed to buy user's seats");
 
+        // commit updates
+        if (!mysqli_commit($dbConn))
+            throw new Exception("Commit failed");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    if ($newStatus == 'free') {
-        // check if booking was mine and set it to free (delete from db)
-        if (!$resultCheckBeforeFree = mysqli_query($dbConn, $queryCheckMyBooking))
-            throw new Exception("failed query check seat before freeing");
-
-        $seatStatus = mysqli_fetch_assoc($resultCheckBeforeFree);
-        if ($seatStatus) {
-            if ($seatStatus['user'] == $user) {
-                if (!mysqli_query($dbConn, $queryDeleteBooking))
-                    throw new Exception("failed to update booking");
-                $response = 'freeSeat';
-            } else {
-                // seat was not related to the user (booked or bought from another user)
-                $response = $seatStatus['status'];
-            }
-        }
-    } elseif ($newStatus == 'booked') {
-        if (!$resultCheckFree = mysqli_query($dbConn, $queryCheckFree))
-            throw new Exception("failed query check seat free before booking");
-
-        $seatStatus = mysqli_fetch_assoc($resultCheckFree);
-        if ($seatStatus) {
-            // was booked or sold
-            // query update or exit
-            if ($seatStatus['status'] == "sold") {
-                // seat was already sold
-                $response = 'soldSeat';
-            } else {
-                // update Seat
-                if (!mysqli_query($dbConn, $queryUpdateBooking))
-                    throw new Exception("failed to insert new booking");
-                $response = 'myBookedSeat';
-            }
-        } else {
-            // was free
-            // query insert booking
-            if (!mysqli_query($dbConn, $queryInsertBooking))
-                throw new Exception("failed to insert new booking");
-            $response = 'myBookedSeat';
-        }
-
-
+        $dieMessage = "location:user-home.php?msg=true&info=" . urlencode("Seats purchased correctly");
+    } else {
+        // 1 or more seats were already purchased
+        $dieMessage = "location:user-home.php?error=true&errors=" . urlencode("1 or more seats are not available");
     }
-
-    if (!mysqli_commit($dbConn))
-        throw new Exception("Commit failed");
-
-    // all was good return
-    echo $response;
-
 } catch (Exception $e) {
+    $dieMessage = "location:user-home.php?error=true&errors=" . urlencode("Unexpected error occurred, reload and try again");
     mysqli_rollback($dbConn);
     mysqli_autocommit($dbConn, true);
     mysqli_close($dbConn);
+    die(header($dieMessage));
 }
 mysqli_autocommit($dbConn, true);
 mysqli_close($dbConn);
+die(header($dieMessage));
 
 ?>

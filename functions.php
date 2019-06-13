@@ -66,7 +66,7 @@ function printSeatInformation($loggedIn = false)
     if ($loggedIn) {
         echo "<li id='status_my_booking'>My booked seats: " . $myBooking . "</li>";
         echo "</ul><hr>";
-        echo "<button type='button' class='utilityButton' name='update' onclick='window.location.href=window.location.href'>Update</button><br>";
+        echo "<button type='button' class='utilityButton' name='update' onclick='window.location.replace(location.pathname)'>Update</button><br>";
         echo "<input type='submit' class='utilityButton' name='buy' value='Buy'/>";
     } else
         echo "</ul>";
