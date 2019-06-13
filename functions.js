@@ -4,6 +4,11 @@
  * Date: 06/06/2019
  */
 
+/**
+ * This function uses a regular expression to validate an emailAddress
+ * @param emailToCheck: email address to validate
+ * @returns {boolean} : valid or not (true / false)
+ */
 function validateEmail(emailToCheck) {
     var regularExpression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (regularExpression.test(emailToCheck)) {
@@ -14,6 +19,12 @@ function validateEmail(emailToCheck) {
     }
 }
 
+/**
+ * This function validate a password as described in project requirement
+ *
+ * @param psswdToCheck: password to validate
+ * @returns {boolean} : valid or not (true / false)
+ */
 function validatePassword(psswdToCheck) {
     var regularExpression = /(\.*[a-z]+\.*[0-9]+\.*)|(\.*[a-z]+[A-Z]+\.*)|(\.*[0-9]+[a-z]+\.*)|(\.*[A-Z]+[a-z]+\.*)/;
     if (regularExpression.test(psswdToCheck)) {
@@ -26,6 +37,12 @@ function validatePassword(psswdToCheck) {
     }
 }
 
+/**
+ * Wrapper function for validation, in case of registration we need to validate both mail and pass
+ * while in case of login we check only mail validity
+ * @param page
+ * @returns {boolean}
+ */
 function validateForm(page) {
     if (page === "login") {
         var emailToCheck = document.getElementById("mail").value;
@@ -38,15 +55,20 @@ function validateForm(page) {
     }
 }
 
+/**
+ * Javascript function to check if cookies are enabled.
+ * Redirect on error page in case are not enabled
+ */
 function checkCookies() {
     var cookies = navigator.cookieEnabled;
     if (!cookies) {
-        document.write(
-            "<div class='noscript'><h1>Attention: you need to enable COOKIES in order to use the website.</h1></div>"
-        );
+        window.location.replace("error.php");
     }
 }
 
+/**
+ * Ajax request gereator based on used browser
+ */
 function ajaxRequest() {
     try {
         // Non IE Browser?
@@ -70,10 +92,16 @@ function ajaxRequest() {
     return request;
 }
 
+/**
+ * Ajax async request for booking or freeing seats
+ * @param seatID: id of the seat to book or free
+ */
 function bookAjax(seatID) {
-    var className = document.getElementById(seatID).className;
+    var className = document.getElementById(seatID).className; // get class of button pressed
     var newStatus = "";
-    if ((className === "freeSeat") || (className === "bookedSeat")) {
+
+    // set new status based on previous
+    if (className === "freeSeat" || className === "bookedSeat") {
         newStatus = "booked";
     }
     if (className === "myBookedSeat") {
@@ -87,21 +115,33 @@ function bookAjax(seatID) {
     req.onreadystatechange = function () {
         updateSeatStatus(seatID);
     };
+    // Post parameters: seat ID and new status to set
     req.send("seatID=" + seatID + "&newStatus=" + newStatus);
 }
 
+/**
+ * Callback function for ajax request
+ * @param seatID:  id of the seat to book or free
+ */
 function updateSeatStatus(seatID) {
-    if ((req.readyState === 4) && (req.status === 0 || req.status === 200)) {
+    if (req.readyState === 4 && (req.status === 0 || req.status === 200)) {
+
+        //if no errors occured set new status as class (modify color)
         if (req.responseText !== "error")
             document.getElementById(seatID).className = req.responseText;
-        if (document.getElementById(seatID).className === 'soldSeat') {
+
+        // if seat was sold during the request, mark it as sold and display an alert
+        if (document.getElementById(seatID).className === "soldSeat") {
             document.getElementById(seatID).disabled = true;
-            alert('Seat: ' + seatID + " is sold.")
+            alert("Seat: " + seatID + " is sold.");
         }
-        if (req.responseText === 'myBookedSeat')
+
+        // if seat is booked for current user we need to set hidden input value for purchase function
+        if (req.responseText === "myBookedSeat")
             document.getElementById(seatID + "_HIDDEN").value = "BS";
 
-        if (req.responseText === 'freeSeat')
+        // if seat is now free (and was mine) we need to delete hidden value
+        if (req.responseText === "freeSeat")
             document.getElementById(seatID + "_HIDDEN").value = "";
     }
 }

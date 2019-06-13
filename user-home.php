@@ -36,7 +36,7 @@ checkSession();
         <h4 class="aside_menu">Welcome back <br><br>
             <?php
             if (isset($_SESSION['s267570_user']))
-                echo $_SESSION['s267570_user'];
+                echo strip_tags($_SESSION['s267570_user']);
             else
                 myRedirect("login.php");
             ?>

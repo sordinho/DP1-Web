@@ -4,24 +4,28 @@
  * Created by Davide Sordi
  * Using PhpStorm
  * Date: 11/06/2019
+ *
+ * page called for booking, or freeing a seat
  */
 
 include('functions.php');
-//checkHTTPS();
 checkSession();
 
+// if the request is not a valid one redirect to user home.
 if ((!isset($_SESSION['s267570_user'])) || (!isset($_POST['seatID'])) || (!isset($_POST['newStatus']))) {
     echo "error";
     die(header("location:user-home.php"));
 }
 
 $user = $_SESSION['s267570_user'];
-$seat = $_POST['seatID'];
-$newStatus = $_POST['newStatus'];
+// for security we need to prevent sql injection from post requests
+$seat = mysqli_real_escape_string($dbConn, $_POST['seatID']);
+$newStatus = mysqli_real_escape_string($dbConn, $_POST['newStatus']);
 
-
+// set a new DB connection
 $dbConn = DBConnect();
 
+// Utility queries
 $queryCheckFree = "SELECT * from bookings where seat='$seat' FOR UPDATE";
 $queryInsertBooking = "INSERT INTO  bookings(seat,status,user) values ('$seat','$newStatus','$user')";
 $queryUpdateBooking = "UPDATE  bookings SET status='$newStatus', user='$user' WHERE seat='$seat'";
@@ -30,8 +34,9 @@ $queryCheckMyBooking = "SELECT * from bookings where seat='$seat' FOR UPDATE";
 
 
 try {
-    mysqli_autocommit($dbConn, false);
+    mysqli_autocommit($dbConn, false); //disable autocommit
     if ($newStatus == 'free') {
+
         // check if booking was mine and set it to free (delete from db)
         if (!$resultCheckBeforeFree = mysqli_query($dbConn, $queryCheckMyBooking))
             throw new Exception("failed query check seat before freeing");
@@ -48,6 +53,8 @@ try {
             }
         }
     } elseif ($newStatus == 'booked') {
+
+        // try to book the seat if it is not sold
         if (!$resultCheckFree = mysqli_query($dbConn, $queryCheckFree))
             throw new Exception("failed query check seat free before booking");
 
@@ -59,7 +66,7 @@ try {
                 // seat was already sold
                 $response = 'soldSeat';
             } else {
-                // update Seat
+                // update Seat with booking of current user
                 if (!mysqli_query($dbConn, $queryUpdateBooking))
                     throw new Exception("failed to insert new booking");
                 $response = 'myBookedSeat';
@@ -74,7 +81,7 @@ try {
 
 
     }
-
+    // commit queries
     if (!mysqli_commit($dbConn))
         throw new Exception("Commit failed");
 
@@ -86,8 +93,9 @@ try {
     mysqli_autocommit($dbConn, true);
     mysqli_close($dbConn);
 }
+
+// enable autocommit and close connection
 mysqli_autocommit($dbConn, true);
 mysqli_close($dbConn);
-
 
 ?>

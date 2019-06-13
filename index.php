@@ -20,9 +20,7 @@ checkHTTPS();
     <script type="text/javascript" src="functions.js">
     </script>
     <noscript>
-        <div class='noscript'>
-            <h1>Attention: you need to enable javascript in order to use the website.</h1>
-        </div>
+        <meta http-equiv="refresh" content="0;url=error.php">
     </noscript>
 </head>
 <body>
