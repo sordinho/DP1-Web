@@ -55,9 +55,9 @@ checkHTTPS();
 
         <?php
         if(isset($_GET['loginFailed']))
-            echo "<div class='error'>" . $_GET["errors"] . "</div>";
+            echo "<div class='errorLogReg'>" . $_GET["errors"] . "</div>";
         if(isset($_GET['msg']))
-            echo "<div class='infoOK'>" . $_GET["info"] . "</div>";
+            echo "<div class='infoOKLogReg'>" . $_GET["info"] . "</div>";
         ?>
 
     </section>

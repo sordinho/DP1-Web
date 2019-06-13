@@ -11,11 +11,9 @@ checkSession();
 
 $user = $_SESSION['s267570_user'];
 $countBooked = 0;
-$seats = array();
 foreach ($_POST as $key => $value) {
     if ($value == "BS") {
         $countBooked++;
-        array_push($seats, $key);
     }
 }
 
@@ -26,6 +24,8 @@ $dbConn = DBConnect();
 
 $queryGetBookings = "SELECT * FROM bookings WHERE user='$user' and status='booked' FOR UPDATE ";
 $queryBuySeats = "UPDATE  bookings SET status='sold' WHERE user='$user' and status='booked'";
+$queryFreeSeats = "DELETE FROM  bookings where status='booked' and user='$user'";
+
 
 try {
     mysqli_autocommit($dbConn, false);
@@ -45,6 +45,8 @@ try {
         $dieMessage = "location:user-home.php?msg=true&info=" . urlencode("Seats purchased correctly");
     } else {
         // 1 or more seats were already purchased
+        if (!$resultFreeBookings = mysqli_query($dbConn, $queryFreeSeats))
+            throw new Exception("failed to free user's bookings");
         $dieMessage = "location:user-home.php?error=true&errors=" . urlencode("1 or more seats are not available");
     }
 } catch (Exception $e) {

@@ -56,7 +56,7 @@ checkHTTPS();
 
         <?php
         if (isset($_GET['registrationFailed']))
-            echo "<div class='error'>" . $_GET["errors"] . "</div>";
+            echo "<div class='errorLogReg'>" . $_GET["errors"] . "</div>";
         ?>
 
 
