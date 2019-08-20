@@ -1,7 +1,6 @@
-DP1-Web
+# DP1-Web
 
+Prova di programmazione web 1° appello 2019
 
-domande da fare in lab: 
-
-- controllo sql injection per dati presi da session
-- 
+## Argomento
+Preontazione posti aereo
